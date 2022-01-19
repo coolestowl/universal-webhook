@@ -3,8 +3,12 @@ extern crate rocket;
 
 use std::env;
 
+mod sender;
+mod receiver;
+
 mod router;
 use router::{ index, global_not_found };
+use router::{ yuque_to_slack, diy_to_slack };
 
 #[launch]
 fn rocket() -> _ {
@@ -18,5 +22,5 @@ fn rocket() -> _ {
     
     rocket::custom(figment)
         .register("/", catchers![global_not_found])
-        .mount(root, routes![index])
+        .mount(root, routes![index, yuque_to_slack, diy_to_slack])
 }

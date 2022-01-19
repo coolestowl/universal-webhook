@@ -15,9 +15,11 @@ struct YuqueData {
 }
 
 impl slack::ToSlack for Yuque {
-    fn to_slack(self) -> slack::SlackMessage {
-        slack::SlackMessage{
+    fn to_slack(self) -> slack::Msg {
+        let inner = slack::Text{
             text: format!("id: {}, action: {}, path: {}", self.data.id, self.data.action_type, self.data.path),
-        }
+        };
+        
+        slack::Msg::Text(inner)
     }
 }
